@@ -1,0 +1,74 @@
+# Unity - Gerações Automáticas
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+Assets/AssetStoreTools*
+
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+Logs/
+*.apk
+*.exe
+*.mp4
+
+# Cache do Unity
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+
+# Configs de IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Logs
+*.log
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# VS Code Debug
+.vscode/
+.vs/
+
+# Unity Collab
+.collabignore
+.collab/
+
+# Crash Reports
+sysinfo.txt
+
+# PlayerPrefs (opcional)
+*.prefs
+
+# LFS placeholder files (caso use LFS)
+*.lfs*
+
+# Unity Addressables
+Assets/AddressableAssetsData/*.bin*
+Assets/AddressableAssetsData/*.json
+Assets/AddressableAssetsData/*.catalog
+
+# Rider IDE
+*.sln.iml
+.idea/
+*.ipr
+*.iws
+
+# YAML meta files (não ignore isso!)
+!*.meta
