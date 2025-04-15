@@ -24,14 +24,20 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 	private Vector3 rollDirection;
 	private float rollCost = 4.3f;
 
+	[Header("Jump")]
+	[SerializeField] float jumpHeight = 2f;
+	private Vector3 jumpDirection;
+
 	
 	[Header("GROUND CHECK")]
-	[SerializeField] Vector3 yVelocity;		// Velocity of fall "force"
-	[SerializeField] float yGroundedVelocity = -20;
-	[SerializeField] float yFallStartVelocity = -5;
+	[SerializeField] Vector3 yVelocity;						// Velocity of fall "force"
+	[SerializeField] float yGroundedVelocity = -20;			// Stick to the ground
+	[SerializeField] float yFallStartVelocity = -5;			
 	[SerializeField] float groundCheckSphereRadius = 1;
+	[SerializeField] float gravityForce = -5.55f;
 	[SerializeField] LayerMask  groundLayer;		
  	bool fallingVelocityHasBeenSet = false;
+	float inAirTimer = 0;
 
 
 	private Vector3 moveDirection;
@@ -64,6 +70,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 		HandleSprint();
 		HandleRotation();
 		HandleGroundCheck();
+		HandleGravity();
 		// AEREAL MOVMENT
 	}
 
@@ -113,7 +120,23 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 	}
 
 	private void HandleGravity(){
-		player.isGrounded = Physics.CheckSphere(player.transform.position, groundCheckSphereRadius, groundLayer);
+		if (player.isGrounded) {
+			if(yVelocity.y < 0){
+				inAirTimer = 0;
+				fallingVelocityHasBeenSet = false;
+				yVelocity.y = yGroundedVelocity;
+			}
+		}else{
+			if(!player.isJumping && !fallingVelocityHasBeenSet){
+				fallingVelocityHasBeenSet = true;
+				yVelocity.y = yFallStartVelocity;
+
+			}
+			inAirTimer += Time.deltaTime;
+			yVelocity.y += gravityForce * Time.deltaTime;
+			player.animator.SetFloat("inAirTimer", inAirTimer);
+		}
+		player.characterController.Move(yVelocity * Time.deltaTime);
 	}	
 
     protected void OnDrawGizmosSelected()
@@ -157,7 +180,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 		if (player.isJumping){
 			return;
 		}
-		if(player.isGrounded){
+		if(!player.isGrounded){
 			return;
 		}
 
@@ -168,17 +191,20 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
 		// IF PLAYER IS UNARMED
 		player.isJumping = true;
+		player.isPerformingAction = true;
 
 	}
 
 	public void ApplyJumpingVelocity(){
 		// Forces of game
+		yVelocity.y = Mathf.Sqrt(jumpHeight * -1 * gravityForce);
 
 	}
 	public void HandleSprint(){
 		if (moveAmount>0.8f && PlayerInputManager.instance.sprintInput)
 		{
-			moveAmount = Mathf.Lerp(moveAmount, 2.5f, 0.5f);
+			moveAmount = Mathf.Lerp(moveAmount, 5.5f, 0.8f);
+			//PlayerInputManager.instance.moveAmount = moveAmount;
 		}
 		if (player.isPerformingAction)
 		{
@@ -196,6 +222,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 		// if out of stamina -> sprint is false
 		if(player.playerNetworkManager.currentStamina.Value <=0){
 			player.playerNetworkManager.isSprinting.Value = false;
+			//moveAmount = 0;
 			return;
 		}
 

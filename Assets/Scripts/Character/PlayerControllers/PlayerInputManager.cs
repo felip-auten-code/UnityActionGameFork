@@ -93,6 +93,7 @@ public class PlayerInputManager : MonoBehaviour
 		HandlePlayerMovementInput();
 		HandleCameraMovementInput();
 		HandlePlayerDodgeInput();
+		HandlePlayerJumpInput();
 	}
 
 	// MOVEMENTS
@@ -112,13 +113,14 @@ public class PlayerInputManager : MonoBehaviour
 		moveAmount = Mathf.Lerp(moveAmount, auxMove, 0.1f);
 		moveAmount = Mathf.Clamp01(moveAmount);
 
-		if(moveAmount <= 0.1 && moveAmount > 0){
+		if(moveAmount < 0.1 ){
 			moveAmount = 0f;
 			verticalInput = 0f;
 			horizontalInput = 0f;
 		}
-		else if( moveAmount > 0.5 && moveAmount <= 1){
+		else if( moveAmount > 0.5 && sprintInput && player.playerNetworkManager.currentStamina.Value >= 0){
 			//moveAmount = 1f;
+			moveAmount = 2;
 		}
 
 

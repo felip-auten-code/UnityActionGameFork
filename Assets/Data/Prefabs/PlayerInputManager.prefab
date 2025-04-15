@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 814710036729482453}
+  - component: {fileID: 8316750125595854371}
   m_Layer: 0
   m_Name: PlayerInputManager
   m_TagString: Untagged
@@ -31,3 +32,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8316750125595854371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5495743509387662560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9067fb9b1ef1e149adef0b108f88ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  movementInput: {x: 0, y: 0}
+  timeInputLerpAnimation: 0.7
+  verticalInput: 0
+  horizontalInput: 0
+  moveAmount: 0
+  currentMoveAmount: 0
+  cameraInput: {x: 0, y: 0}
+  cameraVerticalInput: 0
+  cameraHorizontalInput: 0
+  dodgeInput: 0
+  jumpInput: 0
+  sprintInput: 0

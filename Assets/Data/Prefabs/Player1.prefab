@@ -150,17 +150,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 97ada40f57d401540b8eafeeba1f0e9c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.361491
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 97ada40f57d401540b8eafeeba1f0e9c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.015100002
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 97ada40f57d401540b8eafeeba1f0e9c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.3281736
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 97ada40f57d401540b8eafeeba1f0e9c,
         type: 3}
@@ -702,7 +702,7 @@ MonoBehaviour:
   characterController: {fileID: 0}
   animator: {fileID: 0}
   characterNetworkManager: {fileID: 0}
-  characterName: jgfthjg
+  characterName: Jamburg
   isPerformingAction: 0
   canRotate: 1
   canMove: 1
@@ -735,7 +735,8 @@ MonoBehaviour:
   yVelocity: {x: 0, y: 0, z: 0}
   yGroundedVelocity: -20
   yFallStartVelocity: -5
-  groundCheckSphereRadius: 1
+  groundCheckSphereRadius: 0.25
+  gravityForce: -5.55
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
