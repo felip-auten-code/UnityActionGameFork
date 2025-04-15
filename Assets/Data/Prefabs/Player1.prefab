@@ -732,6 +732,7 @@ MonoBehaviour:
   walkingSpeed: 7.1
   runnigSpeed: 9.26
   rotationSpeed: 12
+  jumpHeight: 5.25
   yVelocity: {x: 0, y: 0, z: 0}
   yGroundedVelocity: -20
   yFallStartVelocity: -5

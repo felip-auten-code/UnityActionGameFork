@@ -31,6 +31,9 @@ public class PlayerInputManager : MonoBehaviour
 	[SerializeField] bool jumpInput = false;
 	public bool sprintInput = false;
 
+	[Header("Game Menu")]
+	[SerializeField] bool gameMenuInput = false;
+
 	private void Awake(){
 		if(instance == null){
 			instance = this;
@@ -65,7 +68,7 @@ public class PlayerInputManager : MonoBehaviour
 			playerControls.PlayerCamera.Movement.performed += i => cameraInput = i.ReadValue<Vector2>();
 			playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
 			playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
-			//playerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
+			playerControls.PlayerActions.GameMenu.performed += i => gameMenuInput = true;
 		}
 		playerControls.Enable();
 	}
@@ -149,6 +152,11 @@ public class PlayerInputManager : MonoBehaviour
 			// if in menu dont jump
 			player.playerLocomotionManager.AttemptToPerformJump();
 		}
+	}
+
+	private void HandleGameMenuInput(){
+		// show game menu UI
+		
 	}
 
 	// IF WE MINIMIZE THE GAME

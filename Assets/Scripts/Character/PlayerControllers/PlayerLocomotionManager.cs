@@ -71,7 +71,9 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 		HandleRotation();
 		HandleGroundCheck();
 		HandleGravity();
+		HandleJumpingMovement();
 		// AEREAL MOVMENT
+		HandleFreeFallMovement();
 	}
 
 	private void HandleGroundedMovement(){
@@ -92,6 +94,23 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 		}else if( PlayerInputManager.instance.moveAmount < 1.5f){
 			// WALKING SPEED
 			player.characterController.Move(moveDirection * walkingSpeed * Time.deltaTime);
+		}
+	}
+
+	private void HandleJumpingMovement(){
+		if(player.isJumping){
+			player.characterController.Move(jumpDirection * runnigSpeed * Time.deltaTime);
+		}
+	}
+
+	private void HandleFreeFallMovement(){
+		if(!player.isGrounded){
+			Vector3 freeFallDirection;
+			freeFallDirection = PlayerCameraManager.instance.transform.forward * PlayerInputManager.instance.verticalInput;
+			freeFallDirection += PlayerCameraManager.instance.transform.right * PlayerInputManager.instance.horizontalInput;
+
+			player.characterController.Move(freeFallDirection * walkingSpeed * Time.deltaTime);
+
 		}
 	}
 
@@ -192,6 +211,20 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 		// IF PLAYER IS UNARMED
 		player.isJumping = true;
 		player.isPerformingAction = true;
+
+		jumpDirection = PlayerCameraManager.instance.cameraObject.transform.forward * PlayerInputManager.instance.verticalInput;
+		jumpDirection += PlayerCameraManager.instance.cameraObject.transform.right * PlayerInputManager.instance.horizontalInput;
+		jumpDirection.y = 0;
+
+		if(jumpDirection != Vector3.zero){
+			if(player.playerNetworkManager.isSprinting.Value){
+				jumpDirection*= 1;
+			}else if(PlayerInputManager.instance.moveAmount > 0.5){
+				jumpDirection *= 0.5f;
+			}else if(PlayerInputManager.instance.moveAmount <= 0.5){
+				jumpDirection *= 0.25f;
+			}
+		}
 
 	}
 

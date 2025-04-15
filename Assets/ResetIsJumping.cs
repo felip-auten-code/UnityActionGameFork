@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResetActionFlag : StateMachineBehaviour
+public class ResetIsJumping : StateMachineBehaviour
 {
-
     CharacterManager character;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -12,11 +11,7 @@ public class ResetActionFlag : StateMachineBehaviour
         if (character == null){
             character = animator.GetComponent<CharacterManager>();
         }
-        character.isPerformingAction = false;
-        character.canMove = true;
-        character.canRotate = true; 
-        character.animator.applyRootMotion = false;
-        character.applyRootMotion = false;
+
         character.isJumping = false;
     }
 
@@ -27,10 +22,10 @@ public class ResetActionFlag : StateMachineBehaviour
     //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    // override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    // {
+       
+    // }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
